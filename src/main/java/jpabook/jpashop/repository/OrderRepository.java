@@ -2,9 +2,7 @@ package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderSearch;
-import jpabook.jpashop.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -92,4 +90,21 @@ public class OrderRepository {
         TypedQuery<Order> query=em.createQuery(cq).setMaxResults(1000);
         return query.getResultList();
     }
+
+    // api v3 페치조인을 통해 쿼리문 한번으로 관련 데이터를 전부 셀렉트함.
+    public List<Order> findAllWithMemberDelivery() {
+        List<Order> resultList = em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+
+        return resultList;
+    }
+
+
+
+
+
+
 }

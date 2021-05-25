@@ -54,7 +54,7 @@ public class InitDb {
             OrderItem orderItem1=OrderItem.createOrderItem(book1,20000,3);
             OrderItem orderItem2=OrderItem.createOrderItem(book2,40000,4);
 
-            Delivery delivery = createDelivery(mfember);
+            Delivery delivery = createDelivery(member);
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
 
             em.persist(order);
